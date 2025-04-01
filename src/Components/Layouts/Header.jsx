@@ -10,7 +10,7 @@ function Header(){
       <Navbar expand="lg" >
       <Container>
         <Navbar.Brand href="#home">
-          <Link>
+          <Link to="/" className='logo'>
           <img src={Logo} alt="Logo" className='img-fluid'></img></Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -35,7 +35,7 @@ function Header(){
     </Navbar>
       <br />
       
-    </>
+    </header>
   )
 }
 export default Header
