@@ -7,6 +7,8 @@ function Home(){
     <Layout>
       <div>Home</div>
     </Layout>
+    </Section1>
+
     </>
   )
 }
