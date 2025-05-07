@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { useNavigate } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 const avisCafeMenu = [
   //Momos
   { name: "Veg Momos (Steam)", price: 40 },
@@ -91,12 +92,17 @@ const avisCafeMenu = [
   { name: "Golgappa - 40 Pcs", price: 100 }
 ];
 
-const AvisCafeMenu = ({ addToCart }) => {
+const AvisCafeMenu = () => {
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
   return (
     <div className="container mt-4">
+      <button className="btn btn-secondary mb-3" onClick={() => navigate('/')}>
+        Back to Home
+      </button>
       <h5 className="mb-3">Avi's Cafe Menu</h5>
       <div className="row">
-        {maggiPointMenu.map((item, index) => (
+        {avisCafeMenu.map((item, index) => (
           <div className="col-md-6 mb-3" key={index}>
             <div className="d-flex justify-content-between align-items-center border p-2 rounded">
               <div>

@@ -41,6 +41,8 @@ const Location = () => {
       console.error("Error saving location to DB:", error);
       alert("Something went wrong while saving location.");
     }
+    
+    
   };
 
   return (

@@ -1,6 +1,8 @@
 import React from 'react';
-
-const brioMenu = [
+import { useNavigate } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
+//const CanteenMenu = ({ addToCart }) => {
+ const brioMenu = [
   // Cold Press Juices
   { name: "Sweet Lime (Mousambi)", price: 55 },
   { name: "Pineapple", price: 55 },
@@ -75,9 +77,15 @@ const brioMenu = [
   { name: "Seasonal Fruits Palette", price: 45 }
 ];
 
-const BrioMenu = ({ addToCart }) => {
+const BrioMenu = () => {
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
+
   return (
     <div className="container mt-4">
+      <button className="btn btn-secondary mb-3" onClick={() => navigate('/')}>
+        Back to Home
+      </button>
       <h5 className="mb-3">Brio Menu</h5>
       <div className="row">
         {brioMenu.map((item, index) => (
@@ -97,5 +105,6 @@ const BrioMenu = ({ addToCart }) => {
     </div>
   );
 };
+//}
 
 export default BrioMenu;

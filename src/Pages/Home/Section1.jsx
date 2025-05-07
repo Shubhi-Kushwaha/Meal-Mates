@@ -1,8 +1,11 @@
 import React from "react";
+import Home from "../../Components/Home";
 function Section1(){
   return (
     <>
-    <div>section1</div>
+
+    <Home/>
+    <Section1/>
     </>
   )
 }

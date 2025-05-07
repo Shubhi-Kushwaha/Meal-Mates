@@ -1,5 +1,7 @@
 // client/src/menus/CanteenMenu.jsx
-import React from 'react';
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { CartContext } from '../context/CartContext'; // ✅ your context
 
 const canteenMenu = [
   // Snacks
@@ -123,9 +125,15 @@ const canteenMenu = [
   { name: "Gujiya", price: 15 },
 ];
 
-const CanteenMenu = ({ addToCart }) => {
+const CanteenMenu = () => {
+  const { addToCart } = useContext(CartContext);
+  const navigate = useNavigate(); // ✅ fix this
   return (
+
     <div className="container mt-4">
+      <button className="btn btn-secondary mb-3" onClick={() => navigate('/')}>
+        Back to Home
+      </button>
       <h5 className="mb-3">Canteen Menu</h5>
       <div className="row">
         {canteenMenu.map((item, index) => (

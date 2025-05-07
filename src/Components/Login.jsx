@@ -28,12 +28,14 @@ function Login() {
         console.error('Error while sending OTP:', err);
         alert('Error sending OTP!');
       });
+      
   };
 
   const verifyOTP = () => {
     axios.post('http://localhost:5000/api/auth/verify-otp', { phone, otp })
       .then(response => {
         alert(response.data.message);
+        localStorage.setItem('phone', phone);  // ✅ Move here        
         navigate('/location');
       })
       .catch(error => {
@@ -41,7 +43,7 @@ function Login() {
         alert('Invalid OTP!');
       });
     localStorage.setItem('phone', phone);
-    navigate('/location');
+   
   };
 
   return (

@@ -1,18 +1,37 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from '../assets/logo.jpeg'; // Ensure this path is correct
+import logo from '../assets/logo.jpeg';
+import "../styles/HeaderStyle.css";
+import canteenImg from '../assets/canteen.jpeg';
+import brioImg from '../assets/brio.jpeg';
+import avisCafeImg from '../assets/avisCafe.jpeg';
+import StationaryImg from '../assets/stationary.jpeg';
 import CanteenMenu from '../Menu/CanteenMenu';
 import BrioMenu from '../Menu/BrioMenu';
 import AvisCafeMenu from '../Menu/AvisCafeMenu';
+import StationaryMenu from '../Menu/StationaryMenu';
+import { Link } from 'react-router-dom';
+import { Navbar, Nav } from 'react-bootstrap';
 
 function Home() {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('canteen');
+  const [activeTab, setActiveTab] = useState('');
   const [cart, setCart] = useState([]);
 
   const addToCart = (item) => {
     setCart([...cart, item]);
   };
+
+  
+
+
+  //const handleMenuClick = (vendor) => {
+  //  setActiveTab(vendor);
+  //};
+  const handleMenuClick = (vendor) => {
+    navigate(`/${vendor}`);
+  };
+  
 
   return (
     <div>
@@ -22,10 +41,19 @@ function Home() {
           <img src={logo} alt="Logo" width="40" height="40" />
           <h5 className="ms-2 mb-0">MealMates</h5>
         </div>
-
-        <div className="ms-auto">
-          <button className="btn btn-outline-success me-2" onClick={() => navigate('/gogreen')}>Go Green</button>
-          <button className="btn btn-outline-warning me-2" onClick={() => navigate('/cart')}>Cart</button>
+        
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="ms-auto">
+            <Nav.Link as={Link} to ="/">Home</Nav.Link>
+            <Nav.Link as={Link} to ="/about" >About</Nav.Link>
+            <Nav.Link as={Link} to ="/contact" >Contact</Nav.Link>
+            <Nav.Link as={Link} to ="/GoGreen" ><button className="btn btn-outline-success me-2" onClick={() => navigate('/gogreen')}>Go Green</button></Nav.Link>
+            <Nav.Link as={Link} to ="/cart" ><div className="cart"><button className="btn btn-outline-warning me-2" onClick={() => navigate('/cart')}><i class="bi bi-bag fs-5"></i></button></div></Nav.Link>
+            <Nav.Link as={Link} to="/login">
+              <button className="btn btn-primary">Login / Signup</button>
+           </Nav.Link>
+            <Nav.Link as={Link} to ="/info" ><div className="ms-auto">
           <div className="dropdown">
             <img
               src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
@@ -62,49 +90,80 @@ function Home() {
               <li><button className="dropdown-item">Contact Us</button></li>
             </ul>
           </div>
-        </div>
+        </div></Nav.Link>
+        
+            
+          </Nav>
+        </Navbar.Collapse>
+        
       </nav>
 
-      {/* Menu Tabs */}
-      <div className="container mt-5">
-        <h2 className="text-center mb-4">Campus Food Ordering</h2>
-
-        {/* Bootstrap Nav Tabs */}
-        <ul className="nav nav-tabs mb-4">
-          <li className="nav-item">
-            <button
-              className={`nav-link ${activeTab === 'canteen' ? 'active' : ''}`}
-              onClick={() => setActiveTab('canteen')}
+      {/* Menu Options */}
+      <div className="container text-center mt-4" style={{ backgroundColor: 'MediumAquaMarine' }}>
+        <h2>Menu</h2>
+        <div className="row" >
+          <div className="col-md-4 my-3">
+            <div
+              className="card"
+              onClick={() => handleMenuClick('canteen')}
+              style={{ cursor: 'pointer' }}
             >
-              Canteen
-            </button>
-          </li>
-          <li className="nav-item">
-            <button
-              className={`nav-link ${activeTab === 'brio' ? 'active' : ''}`}
-              onClick={() => setActiveTab('brio')}
+              <img src={canteenImg} className="card-img-top" style={{ height: '200px', objectFit: 'cover' }} alt="Canteen" />
+              <div className="card-body">
+                <h5 className="card-title">Canteen</h5>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-4 my-3">
+            <div
+              className="card"
+              onClick={() => handleMenuClick('brio')}
+              style={{ cursor: 'pointer' }}
             >
-              Brio
-            </button>
-          </li>
-          <li className="nav-item">
-            <button
-              className={`nav-link ${activeTab === 'avisCafe' ? 'active' : ''}`}
-              onClick={() => setActiveTab('avisCafe')}
+              <img src={brioImg} className="card-img-top" style={{ height: '200px', objectFit: 'cover' }} alt="Brio" />
+              <div className="card-body">
+                <h5 className="card-title">Brio</h5>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-4 my-3">
+            <div
+              className="card"
+              onClick={() => handleMenuClick('avisCafe')}
+              style={{ cursor: 'pointer' }}
             >
-              Avi's Cafe
-            </button>
-          </li>
-        </ul>
+              <img src={avisCafeImg} className="card-img-top" style={{ height: '200px', objectFit: 'cover' }} alt="Avis Cafe" />
+              <div className="card-body">
+                <h5 className="card-title">Avis Cafe</h5>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-4 my-3">
+            <div
+              className="card"
+              onClick={() => handleMenuClick('stationary')}
+              style={{ cursor: 'pointer' }}
+            >
+              <img src={StationaryImg} className="card-img-top" style={{ height: '200px', objectFit: 'cover' }} alt="Stationary" />
+              <div className="card-body">
+                <h5 className="card-title">Stationary</h5>
+              </div>
+            </div>
+          </div>
+        </div>
 
-        {/* Render Menus Based on Active Tab */}
-        {activeTab === 'canteen' && <CanteenMenu addToCart={addToCart} />}
-        {activeTab === 'brio' && <BrioMenu addToCart={addToCart} />}
-        {activeTab === 'avisCafe' && <AvisCafeMenu addToCart={addToCart} />}
-
+        
       </div>
     </div>
   );
 }
 
 export default Home;
+
+
+
+
+
+
+
+
