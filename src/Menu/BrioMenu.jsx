@@ -1,6 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
+const addToCart = (item) => {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cart.push(item);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  alert(`${item.name} added to cart!`);
+};
+
+
 //const CanteenMenu = ({ addToCart }) => {
  const brioMenu = [
   // Cold Press Juices
@@ -78,8 +85,9 @@ import { useCart } from '../context/CartContext';
 ];
 
 const BrioMenu = () => {
+ 
   const navigate = useNavigate();
-  const { addToCart } = useCart();
+  
 
   return (
     <div className="container mt-4">

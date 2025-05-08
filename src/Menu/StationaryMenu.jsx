@@ -1,42 +1,26 @@
 
-  import React from 'react';
-  import { useNavigate } from 'react-router-dom';
-  import { useCart } from '../context/CartContext';
-  const stationaryMenu = [
-    // Snacks
-    { id: 1, name: "Notebook", price: 50 },
-    { id: 2, name: "Pen", price: 10 },
-    { id: 3, name: "Pencil", price: 5 },
-  ];
-  
-  const StationaryMenu = () => {
-    const navigate = useNavigate();
-    const { addToCart } = useCart();
+import React from 'react';
 
-    return (
-      <div className="container mt-4">
-        <button className="btn btn-secondary mb-3" onClick={() => navigate('/')}>
-        ← Back to Home
-      </button>
-        <h5 className="mb-3">Stationary Menu</h5>
-        <div className="row">
-          {stationaryMenu.map((item, index) => (
-            <div className="col-md-6 mb-3" key={index}>
-              <div className="d-flex justify-content-between align-items-center border p-2 rounded">
-                <div>
-                  <strong>{item.name}</strong>
-                  <div>₹{item.price}</div>
-                </div>
-                <button className="btn btn-sm btn-success" onClick={() => addToCart(item)}>
-                  Add +
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
-  
-  export default StationaryMenu;
-  
+function Cart() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  return (
+    <div className="container mt-4">
+      <h2>Your Cart</h2>
+      {cart.length === 0 ? (
+        <p>Your cart is empty.</p>
+      ) : (
+        cart.map((item, index) => (
+          <div key={index} className="d-flex justify-content-between border p-2">
+            <span>{item.name}</span>
+            <span>₹{item.price}</span>
+          </div>
+        ))
+      )}
+    </div>
+  );
+}
+
+export default Cart;
+
+ 

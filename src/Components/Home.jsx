@@ -48,8 +48,8 @@ function Home() {
             <Nav.Link as={Link} to ="/">Home</Nav.Link>
             <Nav.Link as={Link} to ="/about" >About</Nav.Link>
             <Nav.Link as={Link} to ="/contact" >Contact</Nav.Link>
-            <Nav.Link as={Link} to ="/GoGreen" ><button className="btn btn-outline-success me-2" onClick={() => navigate('/gogreen')}>Go Green</button></Nav.Link>
-            <Nav.Link as={Link} to ="/cart" ><div className="cart"><button className="btn btn-outline-warning me-2" onClick={() => navigate('/cart')}><i class="bi bi-bag fs-5"></i></button></div></Nav.Link>
+            <Nav.Link as={Link} to ="/GoGreen" ><button className="btn btn-outline-success me-2" onClick={() => navigate('/gogreen')}>Go Axis Green</button></Nav.Link>
+            <Nav.Link as={Link} to ="/cart" ><div className="cart"><button className="btn btn-outline-warning me-2" onClick={() => navigate('/cart')}><i className="bi bi-bag fs-5"></i></button></div></Nav.Link>
             <Nav.Link as={Link} to="/login">
               <button className="btn btn-primary">Login / Signup</button>
            </Nav.Link>

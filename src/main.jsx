@@ -5,14 +5,11 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { BrowserRouter } from 'react-router-dom';
-import { CartProvider } from './context/CartContext'; // Make sure this file exports CartProvider
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <CartProvider>
+    <React.StrictMode>
+      <BrowserRouter>
         <App />
-      </CartProvider>
-    </BrowserRouter>
-  </React.StrictMode>
-);
+      </BrowserRouter>
+    </React.StrictMode>
+  );

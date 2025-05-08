@@ -13,6 +13,10 @@ import CanteenMenu from './Menu/CanteenMenu';
 import BrioMenu from './Menu/BrioMenu';
 import AvisCafeMenu from './Menu/AvisCafeMenu';
 import StationaryMenu from './Menu/StationaryMenu';
+import About from './Pages/About.jsx'; // or '../Pages/About.jsx'
+//import AdminLogin from './Pages/admin/AdminLogin.jsx';
+//import AdminDashboard from './Pages/admin/AdminDashboard.jsx';
+
 
 function App() {
   return (
@@ -31,6 +35,8 @@ function App() {
       <Route path="/brio" element={<BrioMenu />} />
       <Route path="/aviscafe" element={<AvisCafeMenu />} />
       <Route path="/stationary" element={<StationaryMenu />} />
+      <Route path="/about" element={<About />} />
+      
     </Routes>
   );
 }

@@ -1,7 +1,17 @@
 // client/src/menus/CanteenMenu.jsx
-import React, { useContext } from 'react';
+
 import { useNavigate } from 'react-router-dom';
-import { CartContext } from '../context/CartContext'; // ✅ your context
+
+import React, { useContext } from 'react';
+const addToCart = (item) => {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cart.push(item);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  alert(`${item.name} added to cart!`);
+};
+
+
+
 
 const canteenMenu = [
   // Snacks
@@ -126,7 +136,7 @@ const canteenMenu = [
 ];
 
 const CanteenMenu = () => {
-  const { addToCart } = useContext(CartContext);
+
   const navigate = useNavigate(); // ✅ fix this
   return (
 

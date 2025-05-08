@@ -1,40 +1,74 @@
-// components/admin/ManageOrders.jsx
+import React, { useState } from 'react';
 
-import React from 'react';
+function Cart() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const [noExtraPackaging, setNoExtraPackaging] = useState(false);
 
-function ManageOrders() {
-  const orders = [
-    { id: 101, student: 'Alice', items: 'Maggie x2', total: 90, status: 'Delivered' },
-    { id: 102, student: 'Bob', items: 'Coffee x1', total: 50, status: 'Pending' }
-  ];
+  const handlePlaceOrder = () => {
+    const orderData = {
+      items: cart,
+      noExtraPackaging,  // <- this matches with backend req.body.noExtraPackaging
+      user_id: userId,
+      total_price: calculateTotal(cart),
+    };
+    
+
+    // Example fetch call
+    fetch('http://localhost:5000/api/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(orderData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        alert('Order placed successfully!');
+        localStorage.removeItem('cart');
+        // redirect or reset state if needed
+      })
+      .catch((err) => {
+        console.error('Order failed', err);
+        alert('Order failed!');
+      });
+  };
 
   return (
-    <div>
-      <h4>Manage Orders</h4>
-      <table className="table table-striped mt-3">
-        <thead>
-          <tr>
-            <th>Order ID</th>
-            <th>Student</th>
-            <th>Items</th>
-            <th>Total</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders.map(o => (
-            <tr key={o.id}>
-              <td>{o.id}</td>
-              <td>{o.student}</td>
-              <td>{o.items}</td>
-              <td>₹{o.total}</td>
-              <td>{o.status}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="container mt-4">
+      <h2>Your Cart</h2>
+
+      {cart.length === 0 ? (
+        <p>Your cart is empty.</p>
+      ) : (
+        cart.map((item, index) => (
+          <div key={index} className="d-flex justify-content-between border p-2">
+            <span>{item.name}</span>
+            <span>₹{item.price}</span>
+          </div>
+        ))
+      )}
+
+      <div className="form-check mt-3">
+        <input
+          className="form-check-input"
+          type="checkbox"
+          id="noExtraPackaging"
+          checked={noExtraPackaging}
+          onChange={(e) => setNoExtraPackaging(e.target.checked)}
+        />
+        <label className="form-check-label" htmlFor="noExtraPackaging">
+          I don't want extra packaging (Go Green 🌱)
+        </label>
+      </div>
+
+      {cart.length > 0 && (
+        <button className="btn btn-success mt-3" onClick={handlePlaceOrder}>
+          Place Order
+        </button>
+      )}
     </div>
   );
 }
 
-export default ManageOrders;
+export default Cart;
+

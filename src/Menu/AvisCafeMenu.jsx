@@ -1,6 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
+const addToCart = (item) => {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cart.push(item);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  alert(`${item.name} added to cart!`);
+};
+
+
 const avisCafeMenu = [
   //Momos
   { name: "Veg Momos (Steam)", price: 40 },
@@ -93,8 +100,8 @@ const avisCafeMenu = [
 ];
 
 const AvisCafeMenu = () => {
+
   const navigate = useNavigate();
-  const { addToCart } = useCart();
   return (
     <div className="container mt-4">
       <button className="btn btn-secondary mb-3" onClick={() => navigate('/')}>
