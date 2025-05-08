@@ -18,6 +18,7 @@ import RefundPolicy from './Pages/RefundPolicy';
 import ShippingPolicy from './Pages/ShippingPolicy';// or '../Pages/About.jsx'
 //import AdminLogin from './Pages/admin/AdminLogin.jsx';
 //import AdminDashboard from './Pages/admin/AdminDashboard.jsx';
+import ContactUs from './pages/ContactUs';
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
       <Route path="/about" element={<About />} />
       <Route path="/refund-policy" element={<RefundPolicy />} />
       <Route path="/shipping-policy" element={<ShippingPolicy />} />
+      <Route path="/contact" element={<ContactUs />} />
       
     </Routes>
   );
