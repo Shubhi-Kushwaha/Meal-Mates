@@ -9,6 +9,10 @@ import Cart from './components/Cart';
 import Info from './components/Info';
 import AdminLogin from './components/admin/AdminLogin';
 import AdminDashboard from './components/admin/AdminDashboard';
+import ManageMenu from './components/admin/ManageMenu';
+import ManageOrders from './components/admin/ManageOrders';
+import ManageUsers from './components/admin/ManageUsers';
+import Payments from './components/admin/Payments';
 import CanteenMenu from './Menu/CanteenMenu';
 import BrioMenu from './Menu/BrioMenu';
 import AvisCafeMenu from './Menu/AvisCafeMenu';
@@ -18,7 +22,7 @@ import RefundPolicy from './Pages/RefundPolicy';
 import ShippingPolicy from './Pages/ShippingPolicy';// or '../Pages/About.jsx'
 //import AdminLogin from './Pages/admin/AdminLogin.jsx';
 //import AdminDashboard from './Pages/admin/AdminDashboard.jsx';
-import ContactUs from './pages/ContactUs';
+import ContactUs from './Pages/ContactUs';
 
 
 function App() {
@@ -34,6 +38,10 @@ function App() {
       <Route path="/info" element={<Info />} />
       <Route path="/admin/login" element={<AdminLogin />} />
       <Route path="/admin/dashboard" element={<AdminDashboard />} />
+      <Route path="/admin/menu" element={<ManageMenu />} />
+      <Route path="/admin/orders" element={<ManageOrders />} />
+      <Route path="/admin/users" element={<ManageUsers />} />
+      <Route path="/admin/payments" element={<Payments />} />
       <Route path="/canteen" element={<CanteenMenu />} />
       <Route path="/brio" element={<BrioMenu />} />
       <Route path="/aviscafe" element={<AvisCafeMenu />} />
@@ -42,6 +50,7 @@ function App() {
       <Route path="/refund-policy" element={<RefundPolicy />} />
       <Route path="/shipping-policy" element={<ShippingPolicy />} />
       <Route path="/contact" element={<ContactUs />} />
+      
       
     </Routes>
   );

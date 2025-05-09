@@ -19,6 +19,7 @@ function Cart() {
   }, []);
 
   // Update total price when cart changes
+    // Update total price when cart changes
   useEffect(() => {
     const newTotal = cartItems.reduce(
       (sum, item) => sum + item.price * item.quantity,
@@ -26,6 +27,15 @@ function Cart() {
     );
     setTotal(newTotal);
   }, [cartItems]);
+
+  // Load Razorpay script
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
+
 
   const updateQuantity = (index, newQty) => {
     const newCart = [...cartItems];
@@ -35,25 +45,55 @@ function Cart() {
   };
 
   const handlePlaceOrder = async () => {
-    try {
-      const response = await axios.post('http://localhost:5000/api/orders/create', {
-        user_id,
-        items: cartItems,
-        total,
-        noExtraPackaging,
-        isBulk,
-      });
+  try {
+    // 1. Ask backend to create a Razorpay order
+    const orderResponse = await axios.post('http://localhost:5000/api/payments/create-order', {
+      amount: total * 100, // Razorpay takes amount in paise
+    });
 
-      if (response.data.success) {
-        alert('Order placed successfully!');
-        localStorage.removeItem('cart');
+    const { id: order_id, currency, amount } = orderResponse.data;
+
+    // 2. Setup Razorpay options
+    const options = {
+      key: "rzp_test_YOUR_KEY_HERE", // Replace with your Razorpay TEST Key
+      amount: amount,
+      currency: currency,
+      name: "Meal Mates",
+      description: "Food Order Payment",
+      order_id: order_id,
+      handler: async function (response) {
+        // 3. Payment success — place the actual order
+        await axios.post('http://localhost:5000/api/orders/create', {
+          user_id,
+          items: cartItems,
+          total,
+          noExtraPackaging,
+          isBulk,
+          payment_id: response.razorpay_payment_id
+        });
+
+        alert("Order placed and payment successful!");
+        localStorage.removeItem("cart");
         setCartItems([]);
+      },
+      prefill: {
+        name: "Your Name",
+        email: "test@example.com",
+        contact: "9999999999"
+      },
+      theme: {
+        color: "#0f6"
       }
-    } catch (error) {
-      console.error('Order failed', error);
-      alert('Order failed!');
-    }
-  };
+    };
+
+    const razor = new window.Razorpay(options);
+    razor.open();
+  } catch (error) {
+    console.error("Payment or order failed", error);
+    alert("Something went wrong during payment.");
+  }
+};
+
 
   return (
     <div className="container mt-4">
